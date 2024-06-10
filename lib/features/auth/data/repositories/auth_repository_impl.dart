@@ -1,7 +1,7 @@
 import 'package:flutter_clean_arch/cores/error/exceptions.dart';
 import 'package:flutter_clean_arch/cores/error/failure.dart';
 import 'package:flutter_clean_arch/features/auth/data/datasource/auth_remote_data_source.dart';
-import 'package:flutter_clean_arch/features/auth/domain/entity/user.dart';
+import 'package:flutter_clean_arch/cores/common/entities/user.dart';
 import 'package:flutter_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
@@ -36,6 +36,18 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       ),
     );
+  }
+
+  @override
+  Future<Either<Failure, User>> currentUser() async {
+    try {
+      final user = await remoteDataSource.getCurrentUserData();
+      if (user == null) return left(Failure('User not logged in'));
+
+      return right(user);
+    } on ServerExceptionn catch (e) {
+      return left(Failure(e.message));
+    }
   }
 }
 

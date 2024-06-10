@@ -1,4 +1,4 @@
-import 'package:flutter_clean_arch/features/auth/domain/entity/user.dart';
+import 'package:flutter_clean_arch/cores/common/entities/user.dart';
 
 class UserModel extends User {
   UserModel({
@@ -12,6 +12,18 @@ class UserModel extends User {
       id: json['id'] ?? '',
       email: json['email'] ?? '',
       name: json['name'] ?? '',
+    );
+  }
+
+  UserModel copyWith({
+    String? id,
+    String? email,
+    String? name,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      name: name ?? this.name,
     );
   }
 }

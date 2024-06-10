@@ -1,5 +1,5 @@
 import 'package:flutter_clean_arch/cores/error/failure.dart';
-import 'package:flutter_clean_arch/features/auth/domain/entity/user.dart';
+import 'package:flutter_clean_arch/cores/common/entities/user.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class AuthRepository {
@@ -13,4 +13,6 @@ abstract interface class AuthRepository {
     required String email,
     required String password,
   });
+
+  Future<Either<Failure, User>> currentUser();
 }
